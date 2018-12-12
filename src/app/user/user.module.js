@@ -9,16 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var login_component_1 = require('./login.component');
 var auth_service_1 = require('./auth.service');
 var shared_module_1 = require('../shared/shared.module');
+var welcome_component_1 = require('../home/welcome.component');
 var UserModule = (function () {
     function UserModule() {
     }
     UserModule = __decorate([
         core_1.NgModule({
             imports: [
-                shared_module_1.SharedModule
+                shared_module_1.SharedModule,
+                router_1.RouterModule.forChild([
+                    { path: 'login', component: login_component_1.LoginComponent },
+                    { path: 'welcome', component: welcome_component_1.WelcomeComponent }
+                ])
             ],
             declarations: [
                 login_component_1.LoginComponent

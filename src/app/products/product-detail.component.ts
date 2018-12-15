@@ -9,20 +9,13 @@ import { ProductService } from './product.service';
 })
 export class ProductDetailComponent implements OnInit {
     ngOnInit(): void {
-        let id = +this.activatedRoute.snapshot.params['id'];
-        this.getProduct(id);
+        this.product = this.activatedRoute.snapshot.data['product'];
     }
     pageTitle: string = 'Product Detail';
     product: IProduct;
     errorMessage: string;
 
-    constructor(private productService: ProductService,
-                private activatedRoute: ActivatedRoute) { }
+    constructor(private activatedRoute: ActivatedRoute) { }
 
-    getProduct(id: number) {
-        this.productService.getProduct(id).subscribe(
-            product => this.product = product,
-            error => this.errorMessage = <any>error);
-    }
 
 }

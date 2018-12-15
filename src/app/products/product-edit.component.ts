@@ -12,12 +12,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ProductEditComponent implements OnInit {
     ngOnInit(): void {
-        this.activatedRoute.params.subscribe(
-            params => {
-                let id = +params['id'];
-                this.getProduct(id);
-            }
-        );
+        this.activatedRoute.data.subscribe(data => {
+            this.onProductRetrieved(data['product']);
+        });
     }
     pageTitle: string = 'Product Edit';
     errorMessage: string;
@@ -28,14 +25,6 @@ export class ProductEditComponent implements OnInit {
                 private messageService: MessageService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router) { }
-
-    getProduct(id: number): void {
-        this.productService.getProduct(id)
-            .subscribe(
-                (product: IProduct) => this.onProductRetrieved(product),
-                (error: any) => this.errorMessage = <any>error
-            );
-    }
 
     onProductRetrieved(product: IProduct): void {
         this.product = product;

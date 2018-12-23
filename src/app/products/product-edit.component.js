@@ -27,6 +27,25 @@ var ProductEditComponent = (function () {
             _this.onProductRetrieved(data['product']);
         });
     };
+    Object.defineProperty(ProductEditComponent.prototype, "product", {
+        get: function () {
+            return this.currentProduct;
+        },
+        set: function (value) {
+            this.currentProduct = value;
+            //Clone the object to retain a copy
+            this.originalProduct = { value: value };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProductEditComponent.prototype, "isDirty", {
+        get: function () {
+            return JSON.stringify(this.originalProduct) !== JSON.stringify(this.currentProduct);
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProductEditComponent.prototype.onProductRetrieved = function (product) {
         this.product = product;
         if (this.product.id === 0) {
@@ -57,6 +76,11 @@ var ProductEditComponent = (function () {
         }
         return (this.dataIsValid && Object.keys(this.dataIsValid).every(function (d) { return _this.dataIsValid[d] === true; }));
     };
+    ProductEditComponent.prototype.reset = function () {
+        this.dataIsValid = null;
+        this.currentProduct = null;
+        this.originalProduct = null;
+    };
     ProductEditComponent.prototype.saveProduct = function () {
         var _this = this;
         if (this.isValid(null)) {
@@ -71,6 +95,7 @@ var ProductEditComponent = (function () {
         if (message) {
             this.messageService.addMessage(message);
         }
+        this.reset();
         // Navigate back to the product list
         this.router.navigate(['/products']);
     };

@@ -24,8 +24,8 @@ export class ProductEditComponent implements OnInit {
     }
     set product(value: IProduct) {
         this.currentProduct = value;
-        //Clone the object to retain a copy
-        this.originalProduct = { ...value };
+        // Clone the object to retain a copy
+        this.originalProduct = Object.assign({}, value);
     }
     private dataIsValid: { [key: string]: boolean} = {};
 

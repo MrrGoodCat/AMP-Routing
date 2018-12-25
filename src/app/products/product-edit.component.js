@@ -33,8 +33,8 @@ var ProductEditComponent = (function () {
         },
         set: function (value) {
             this.currentProduct = value;
-            //Clone the object to retain a copy
-            this.originalProduct = { value: value };
+            // Clone the object to retain a copy
+            this.originalProduct = Object.assign({}, value);
         },
         enumerable: true,
         configurable: true
